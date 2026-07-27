@@ -73,6 +73,38 @@ spec:
                 spec:
                   securityContext:
                     fsGroup: 1000
+                  initContainers:
+                    # Wait until the launcher pod's own DNS record is resolvable
+                    # before mpirun starts. JobSet gates the launcher on worker
+                    # readiness, so the launcher's A record is published later than
+                    # the workers' and can lag behind mpirun startup. orted on each
+                    # worker connects back to the launcher FQDN, so if that record
+                    # has not propagated yet ORTE fails to route and the launcher
+                    # exits. Blocking here guarantees bidirectional DNS resolution.
+                    - name: wait-for-launcher-dns
+                      image: {{ include "trainer.runtimeImage" (list .Values.runtimes.deepspeedDistributed.image .) }}
+                      securityContext:
+                        runAsUser: 1000
+                      command:
+                        - /bin/sh
+                        - -c
+                        - |
+                          FQDN="$(hostname).${JOBSET_NAME}"
+                          echo "Waiting for launcher DNS record ${FQDN} to become resolvable..."
+                          for i in $(seq 1 60); do
+                            if getent hosts "${FQDN}" >/dev/null 2>&1; then
+                              echo "Launcher DNS record ${FQDN} resolved."
+                              exit 0
+                            fi
+                            sleep 2
+                          done
+                          echo "Timed out after 120s waiting for launcher DNS record ${FQDN}" >&2
+                          exit 1
+                      env:
+                        - name: JOBSET_NAME
+                          valueFrom:
+                            fieldRef:
+                              fieldPath: metadata.labels['jobset.sigs.k8s.io/jobset-name']
                   containers:
                     - name: node
                       image: {{ include "trainer.runtimeImage" (list .Values.runtimes.deepspeedDistributed.image .) }}
