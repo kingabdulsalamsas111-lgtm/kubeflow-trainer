@@ -126,7 +126,7 @@ wheels = [
 
 [[package]]
 name = "huggingface-hub"
-version = "1.24.0"
+version = "1.30.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -139,9 +139,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/df/9b/d3bb4e7d792835daf34dd7091bbc7d7b4e0437d9388f1ea7239cce49f478/huggingface_hub-1.24.0.tar.gz", hash = "sha256:18431ff4daae0749aa9ba102fc952e314c98e1d30ebdec5319d85ca0a83e1ae5", size = 921848, upload-time = "2026-07-17T09:54:01.022Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/35/97/2eb4abaa5b969ed385066a0496a3823b3ff467fc1082e2202955f1867d60/huggingface_hub-1.30.0.tar.gz", hash = "sha256:e6a6120bc8c8e2723d03648434ee247088cceb55ba7067e7d34d692cad5fdb57", size = 964291, upload-time = "2026-09-03T10:05:14.053Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5f/c3/aeaaf3911d2529614be18d1c8b5496afc185560e76568063d517283318af/huggingface_hub-1.24.0-py3-none-any.whl", hash = "sha256:6ed4120a84a6beec900640aa7e346bd766a6b7341e41526fef5dc8bd81fb7d59", size = 771904, upload-time = "2026-07-17T09:53:59.106Z" },
+    { url = "https://files.pythonhosted.org/packages/c3/0e/3e45bbe0dd48f4e56b1d46649d342de853cd1c7e815323472ab62687f153/huggingface_hub-1.30.0-py3-none-any.whl", hash = "sha256:96ae0a8e99a234374a6fe43e989ebd21c04640b91ab2927e7e5773ba1131ca59", size = 796795, upload-time = "2026-09-03T10:05:12.21Z" },
 ]
 
 [[package]]
@@ -164,7 +164,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "huggingface-hub", specifier = ">=1.24.0,<1.25" },
+    { name = "huggingface-hub", specifier = ">=1.30.0,<1.31" },
     { name = "opendal", specifier = ">=0.47.3" },
 ]
 
